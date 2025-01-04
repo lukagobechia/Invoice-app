@@ -1,22 +1,24 @@
+import { BadRequestException } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 @Schema()
 class Address {
-  @Prop({ type: String})
+  @Prop({ type: String, required:true})
   street: string;
 
-  @Prop({ type: String})
+  @Prop({ type: String, required:true})
   city: string;
 
-  @Prop({ type: String })
-  state?: string;
-
   @Prop({ type: String})
+  state: string;
+
+  @Prop({ type: String, required:true})
   postalCode: string;
 
-  @Prop({ type: String})
+  @Prop({ type: String, required:true})
   country: string;
 }
+
 const AddressSchema = SchemaFactory.createForClass(Address);
 
 @Schema({ timestamps: true })

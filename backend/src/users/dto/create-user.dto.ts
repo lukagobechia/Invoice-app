@@ -7,30 +7,29 @@ import {
   IsEnum,
   ValidateNested,
   IsPhoneNumber,
-  Length,
-  Matches,
+  Matches
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import mongoose from 'mongoose';
 
 export class Address {
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   street: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   city: string;
 
   @IsOptional()
   @IsString()
-  state?: string;
+  state?: string | null;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   postalCode: string;
-  
-  @IsOptional()
+
+  @IsNotEmpty()
   @IsString()
   country: string;
 }
@@ -50,7 +49,6 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  @Length(8, 20)
   @Matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
     {
@@ -75,6 +73,7 @@ export class CreateUserDto {
   })
   phoneNumber: number;
 
+  @IsNotEmpty()
   @ValidateNested()
   @Type(() => Address)
   address: Address;
