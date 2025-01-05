@@ -1,21 +1,20 @@
-import { BadRequestException } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 @Schema()
 class Address {
-  @Prop({ type: String, required:true})
+  @Prop({ type: String, required: true })
   street: string;
 
-  @Prop({ type: String, required:true})
+  @Prop({ type: String, required: true })
   city: string;
 
-  @Prop({ type: String})
+  @Prop({ type: String })
   state: string;
 
-  @Prop({ type: String, required:true})
+  @Prop({ type: String, required: true })
   postalCode: string;
 
-  @Prop({ type: String, required:true})
+  @Prop({ type: String, required: true })
   country: string;
 }
 
@@ -35,8 +34,7 @@ export class User {
   @Prop({
     type: String,
     required: true,
-    match:
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
+    select: false,
   })
   password: string;
 

@@ -31,16 +31,25 @@ export class UsersService {
     return user;
   }
 
+  async findOneByEmail(email: string) {
+    const user = await this.userModel
+      .findOne({ email: email })
+      .select('+password');
+    return user;
+  }
   async update(
     id: mongoose.Schema.Types.ObjectId,
     updateUserDto: UpdateUserDto,
   ) {
-
     const updateFileds = {};
 
-    for(const [key,value] of Object.entries(updateUserDto)) {
-      if(typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        for(const [nestedKey, nestedValue] of Object.entries(value)){
+    for (const [key, value] of Object.entries(updateUserDto)) {
+      if (
+        typeof value === 'object' &&
+        value !== null &&
+        !Array.isArray(value)
+      ) {
+        for (const [nestedKey, nestedValue] of Object.entries(value)) {
           updateFileds[`${key}.${nestedKey}`] = nestedValue;
         }
       } else {
@@ -50,8 +59,8 @@ export class UsersService {
 
     const updatedUser = await this.userModel.findByIdAndUpdate(
       id,
-      {$set: updateFileds},
-      { new: true }
+      { $set: updateFileds },
+      { new: true },
     );
     if (!updatedUser) throw new BadRequestException('User Not Found');
     return updatedUser;
