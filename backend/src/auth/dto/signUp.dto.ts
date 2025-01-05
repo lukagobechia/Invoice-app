@@ -34,7 +34,7 @@ export class Address {
   country: string;
 }
 
-export class CreateUserDto {
+export class SignUpDto {
   @IsNotEmpty()
   @IsString()
   firstName: string;
