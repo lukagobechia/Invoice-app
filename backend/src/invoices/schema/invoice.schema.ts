@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { User } from 'src/users/schema/user.schema';
 
+@Schema({ timestamps: true })
 class Address {
   @Prop({ type: String, required: true })
   street: string;
@@ -21,6 +22,7 @@ class Address {
 
 const AddressSchema = SchemaFactory.createForClass(Address);
 
+@Schema({ timestamps: true })
 class Item {
   @Prop({ type: String, required: true })
   name: string;
@@ -39,7 +41,7 @@ const ItemSchema = SchemaFactory.createForClass(Item);
 
 @Schema({ timestamps: true })
 export class Invoice {
-  @Prop({ Type: String })
+  @Prop({ type: String })
   description: string;
 
   @Prop({ type: Number, required: true })
@@ -51,10 +53,10 @@ export class Invoice {
   @Prop({ type: Date, required: true })
   paymentDue: Date;
 
-  @Prop({ Type: String })
+  @Prop({ type: String })
   clientName: string;
 
-  @Prop({ Type: String })
+  @Prop({ type: String })
   clientEmail: string;
 
   @Prop({ type: AddressSchema, required: true })
@@ -72,7 +74,7 @@ export class Invoice {
   @Prop({ enum: ['draft', 'pending', 'paid'], default: 'draft' })
   status: 'draft' | 'pending' | 'paid';
 
-  @Prop({ Type: mongoose.Schema.Types.ObjectId, ref: User.name })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
   user: mongoose.Schema.Types.ObjectId;
 }
 
