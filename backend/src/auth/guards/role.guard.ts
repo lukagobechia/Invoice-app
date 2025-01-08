@@ -16,7 +16,8 @@ export class IsUser implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const token = getToken(request.headers);
-    if (!token) throw new UnauthorizedException('Unauthorized access: No token provided');
+    if (!token)
+      throw new UnauthorizedException('Unauthorized access: No token provided');
 
     try {
       const payload = await this.jwtService.verify(token);

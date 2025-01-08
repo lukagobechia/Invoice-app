@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import mongoose from 'mongoose';
 import { IsValidObjectIdPipe } from 'src/pipes/isValidObjectId.pipe';
@@ -19,19 +28,24 @@ export class UsersController {
 
   @UseGuards(AuthGuard, IsAdmin)
   @Get(':id')
-  findOne(@Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId) {
+  findOne(
+    @Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId,
+  ) {
     return this.usersService.findOne(id);
   }
 
   @UseGuards(AuthGuard, IsAdmin)
   @Patch(':id')
-  update(@Param('id',IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.usersService.update(id, updateUserDto);
   }
 
   @UseGuards(AuthGuard, IsAdmin)
   @Delete(':id')
-  remove(@Param('id',IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId) {
+  remove(@Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId) {
     return this.usersService.remove(id);
   }
 }
