@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { User } from 'src/users/schema/user.schema';
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: false })
 class Address {
   @Prop({ type: String, required: true })
   street: string;
@@ -22,7 +22,7 @@ class Address {
 
 const AddressSchema = SchemaFactory.createForClass(Address);
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: false })
 class Item {
   @Prop({ type: String, required: true })
   name: string;
