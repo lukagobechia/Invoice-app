@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Invoice } from './schema/invoice.schema';
 import mongoose, { Model } from 'mongoose';
 import { UsersService } from 'src/users/users.service';
+import { QueryParamsDto } from './dto/query-Params.dto';
 
 @Injectable()
 export class InvoicesService {
@@ -32,9 +33,16 @@ export class InvoicesService {
     return invoice;
   }
 
-  async findAll(userId: mongoose.Schema.Types.ObjectId) {
+  async findAll(
+    userId: mongoose.Schema.Types.ObjectId,
+    queryParams: QueryParamsDto,
+  ) {
+    const { page, take } = queryParams;
+    const limit = Math.min(take, 50);
     return this.invoiceModel
       .find({ user: userId })
+      .skip((page - 1) * take)
+      .limit(page * limit)
       .populate({
         path: 'user',
         select:

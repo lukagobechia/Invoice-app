@@ -8,13 +8,15 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
+import mongoose from 'mongoose';
 import { InvoicesService } from './invoices.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { IsValidObjectIdPipe } from 'src/pipes/isValidObjectId.pipe';
-import mongoose from 'mongoose';
+import { QueryParamsDto } from './dto/query-Params.dto';
 
 @Controller('invoices')
 export class InvoicesController {
@@ -29,9 +31,9 @@ export class InvoicesController {
 
   @Get()
   @UseGuards(AuthGuard)
-  findAll(@Req() request) {
+  findAll(@Req() request, @Query() queryParams: QueryParamsDto) {
     const userId = request.userId;
-    return this.invoicesService.findAll(userId);
+    return this.invoicesService.findAll(userId, queryParams);
   }
 
   @Get(':id')
