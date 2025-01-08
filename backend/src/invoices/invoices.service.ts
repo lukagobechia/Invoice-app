@@ -38,20 +38,55 @@ export class InvoicesService {
       .populate({
         path: 'user',
         select:
-          '-password -createdAt -updatedAt -dob -phoneNumber -company -__v',
+          '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
       })
       .select('-__v -updatedAt');
   }
 
-  findOne(id: number) {
-    return `This action returns a ${id} invoice`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    const invoice = await this.invoiceModel.findById(id).populate({
+      path: 'user',
+      select:
+        '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
+    });
+
+    if (!invoice) throw new BadRequestException('Invoice not found');
+    return invoice;
   }
 
-  update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
-    return `This action updates a #${id} invoice`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateInvoiceDto: UpdateInvoiceDto,
+  ) {
+    const updateFields = {};
+
+    for (const [key, value] of Object.entries(updateInvoiceDto)) {
+      if (
+        typeof value === 'object' &&
+        value !== null &&
+        !Array.isArray(value)
+      ) {
+        for (const [nestedKey, nestedValue] of Object.entries(value)) {
+          updateFields[`${key}.${nestedKey}`] = nestedValue;
+        }
+      } else {
+        updateFields[key] = value;
+      }
+    }
+
+    const updatedInvoice = await this.invoiceModel.findByIdAndUpdate(
+      id,
+      { $set: updateFields },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedInvoice) throw new BadRequestException('Invoice not found');
+    return updatedInvoice;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} invoice`;
+  async remove(id: mongoose.Schema.Types.ObjectId) {
+    const deletedInvoice = await this.invoiceModel.findByIdAndDelete(id);
+    if (!deletedInvoice) throw new BadRequestException('Invoice not found');
+    return deletedInvoice;
   }
 }
