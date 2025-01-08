@@ -85,4 +85,18 @@ export class UsersService {
 
     return updatedUser;
   }
+  
+  async removeInvoice(userId, invoiceId) {
+    const user = await this.userModel.findById(userId);
+    if (!user) throw new BadRequestException('User Not Found');
+
+    const invoices = user.invoices.filter((id) => id !== invoiceId);
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      user._id,
+      { ...user, invoices },
+      { new: true },
+    );
+
+    return updatedUser;
+  }
 }

@@ -19,7 +19,7 @@ export class AuthService {
 
   async signUp(signUpDto: SignUpDto) {
     const existUser = await this.usersService.findOneByEmail(signUpDto.email);
-   console.log(existUser)
+    console.log(existUser);
     if (existUser)
       throw new BadRequestException('User with that emial already exists');
 
@@ -47,7 +47,7 @@ export class AuthService {
       throw new UnauthorizedException('Email or password is incorrect');
     const payload = {
       userId: existUser._id,
-      role: existUser.role
+      role: existUser.role,
     };
     const accessToken = await this.jwtService.sign(payload, {
       expiresIn: '1h',
@@ -58,7 +58,7 @@ export class AuthService {
 
   async getCurrentUser(userId: mongoose.Schema.Types.ObjectId) {
     const user = await this.usersService.findOne(userId);
-    console.log(user)
+    console.log(user);
     if (!user) throw new BadRequestException('User not found');
 
     return user;
