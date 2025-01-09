@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/dashboard.css";
+import Users from './users';
 const Dashboard = () => {
   return (
     <>
