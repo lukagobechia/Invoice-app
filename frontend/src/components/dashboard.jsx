@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
-
+import React from "react";
+import "../styles/dashboard.css";
 const Dashboard = () => {
   return (
     <>
-        <h1>Dashboard</h1>
+      <nav>
+        <h1 className="dashboard-title">Admin Panel</h1>
+      </nav>
+      <div className="dashboard">
+        <div className="dashboard-content">
+          <div className="button-container">
+            <button
+              className="dashboard-button"
+              onClick={() => (window.location.href = "/users")}
+            >
+              View Users
+            </button>
+            <button
+              className="dashboard-button"
+              onClick={() => (window.location.href = "/invoices")}
+            >
+              View Invoices
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
