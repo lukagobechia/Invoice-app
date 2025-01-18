@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap");
+* {
+  font-family: "League Spartan", sans-serif;
+}
+body {
+  background-color: hwb(233 12% 78%);
+}
+.dashboard {
+  display: flex;
+  min-height: 85vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dashboard-content {
+  text-align: center;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  color: white;
+
+  margin: 2rem;
+  font-weight: 700;
+}
+
+.button-container {
+  display: flex;
+  gap: 24px;
+}
+
+.dashboard-button {
+  height: 64px;
+  padding: 0 32px;
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-button:hover {
+  background-color: #6d28d9;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.button-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 2rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+
+  .dashboard-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

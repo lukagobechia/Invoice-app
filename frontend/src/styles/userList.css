@@ -1,0 +1,49 @@
+.user-list {
+    background-color: #252945;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .user-list-header {
+    padding: 1rem;
+    background-color: #1E2139;
+    border-bottom: 1px solid #252945;
+  }
+  
+  .user-grid {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1.5fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: center;
+  }
+  
+  .user-list-body .user-grid {
+    border-bottom: 1px solid #1E2139;
+  }
+  
+  .user-list-body .user-grid:hover {
+    background-color: #1E2139;
+  }
+  
+  .user-name {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-role {
+    font-size: 0.875rem;
+    color: #888EB0;
+  }
+  
+  .user-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .user-actions .button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  
