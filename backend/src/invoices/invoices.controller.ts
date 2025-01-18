@@ -18,26 +18,24 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { IsValidObjectIdPipe } from 'src/pipes/isValidObjectId.pipe';
 import { QueryParamsDto } from './dto/query-Params.dto';
 
+@UseGuards(AuthGuard)
 @Controller('invoices')
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
   create(@Req() request, @Body() createInvoiceDto: CreateInvoiceDto) {
     const userId = request.userId;
     return this.invoicesService.create(userId, createInvoiceDto);
   }
 
   @Get()
-  @UseGuards(AuthGuard)
   findAll(@Req() request, @Query() queryParams: QueryParamsDto) {
     const userId = request.userId;
     return this.invoicesService.findAll(userId, queryParams);
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
   findOne(
     @Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId,
   ) {
@@ -45,7 +43,6 @@ export class InvoicesController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
   update(
     @Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId,
     @Body() updateInvoiceDto: UpdateInvoiceDto,
@@ -54,7 +51,6 @@ export class InvoicesController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
   remove(@Param('id', IsValidObjectIdPipe) id: mongoose.Schema.Types.ObjectId) {
     return this.invoicesService.remove(id);
   }
