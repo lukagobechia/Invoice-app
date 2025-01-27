@@ -1,64 +1,103 @@
+:root {
+  --color-background: #1e2139;
+  --color-text: #f8f8fb;
+  --color-primary: #7c5dfa;
+  --color-primary-hover: #9277ff;
+  --color-secondary: #252945;
+  --color-secondary-hover: #1e2139;
+  --color-delete: #ec5757;
+  --color-delete-hover: #ff9797;
+  --color-border: #252945;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
-    padding: 2rem;
-    background-color: #1E2139;
-    min-height: 100vh;
-    color: #F8F8FB;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.container-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+.go-back{
+  margin-top: 20px;
+}
+.button-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.button-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.button-secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.button-delete {
+  background-color: var(--color-delete);
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: var(--color-delete-hover);
+}
+
+.plus-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
   }
-  
+
   .container-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .container-header h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-  
+
   .button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 24px;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
   }
-  
-  .button-primary {
-    background-color: #7C5DFA;
-    color: white;
-  }
-  
-  .button-primary:hover {
-    background-color: #9277FF;
-  }
-  
-  .button-secondary {
-    background-color: #252945;
-    color: #DFE3FA;
-  }
-  
-  .button-secondary:hover {
-    background-color: #1E2139;
-  }
-  
-  .button-delete {
-    background-color: #EC5757;
-    color: white;
-  }
-  
-  .button-delete:hover {
-    background-color: #FF9797;
-  }
-  
-  .plus-icon {
-    font-size: 1.5rem;
-    line-height: 1;
-  }
-  
-  
+}
+
