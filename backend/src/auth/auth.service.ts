@@ -30,7 +30,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return 'User registered Succesfully';
+    return newUser;
   }
 
   async signIn(signInDto: SignInDto) {
