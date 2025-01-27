@@ -1,0 +1,315 @@
+:root {
+    --color-background: #1e2139;
+    --color-text: #dfe3fa;
+    --color-primary: #7c5dfa;
+    --color-primary-hover: #9277ff;
+    --color-secondary: #252945;
+    --color-secondary-hover: #1e2139;
+    --color-delete: #ec5757;
+    --color-delete-hover: #ff9797;
+    --color-border: #252945;
+    --color-draft: #dfe3fa;
+    --color-pending: #ff8f00;
+    --color-paid: #33d69f;
+  }
+  
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: "Arial", sans-serif;
+  }
+  
+  .invoices-list,
+  .invoice-details,
+  .invoices-form {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .invoices-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .invoices-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .filter-select,
+  .sort-select {
+    padding: 0.5rem;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    margin-right: 0.5rem;
+  }
+  
+  .sort-button {
+    padding: 0.5rem;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .sort-button:hover {
+    background-color: var(--color-secondary-hover);
+  }
+  
+  .filter-select {
+    padding: 0.5rem;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-primary {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+  
+  .button-primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+  
+  .button-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+  }
+  
+  .button-secondary:hover {
+    background-color: var(--color-secondary-hover);
+  }
+  
+  .button-delete {
+    background-color: var(--color-delete);
+    color: #fff;
+  }
+  
+  .button-delete:hover {
+    background-color: var(--color-delete-hover);
+  }
+  
+  .button-icon {
+    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+    color: var(--color-text);
+  }
+  
+  .invoices-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .invoice-card {
+    background-color: var(--color-secondary);
+    border-radius: 8px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: background-color 0.2s ease;
+  }
+  
+  .invoice-card:hover {
+    background-color: var(--color-secondary-hover);
+  }
+  
+  .invoice-status {
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .invoice-status.draft {
+    background-color: var(--color-draft);
+    color: var(--color-background);
+  }
+  
+  .invoice-status.pending {
+    background-color: var(--color-pending);
+    color: var(--color-background);
+  }
+  
+  .invoice-status.paid {
+    background-color: var(--color-paid);
+    color: var(--color-background);
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text);
+    text-decoration: none;
+    margin-bottom: 2rem;
+  }
+  
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .invoice-body {
+    background-color: var(--color-secondary);
+    padding: 2rem;
+    border-radius: 8px;
+  }
+  
+  .invoice-addresses {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .invoice-dates {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .invoice-items table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
+  
+  .invoice-items th,
+  .invoice-items td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .invoice-total {
+    background-color: var(--color-background);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .invoices-form .form-section {
+    background-color: var(--color-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+  }
+  
+  .item-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .delete-confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .delete-confirmation-modal {
+    background-color: var(--color-background);
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .delete-confirmation-title {
+    margin-bottom: 1rem;
+  }
+  
+  .delete-confirmation-message {
+    margin-bottom: 1.5rem;
+  }
+  
+  .delete-confirmation-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .invoices-header,
+    .invoice-header,
+    .invoice-addresses,
+    .invoice-dates,
+    .item-row {
+      flex-direction: column;
+      grid-template-columns: 1fr;
+    }
+  
+    .invoice-card {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+  
+  

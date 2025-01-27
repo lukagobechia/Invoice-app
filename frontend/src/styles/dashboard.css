@@ -2,12 +2,19 @@
 * {
   font-family: "League Spartan", sans-serif;
 }
-body {
+html,body {
   background-color: hwb(233 12% 78%);
 }
-.dashboard {
+nav{
   display: flex;
-  min-height: 85vh;
+  flex-direction:row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.dashboard {
+  height: 70vh;
+  display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +31,10 @@ body {
   margin: 2rem;
   font-weight: 700;
 }
-
+.user{
+  color: #fff;
+  margin: 0 40px 0 0;
+}
 .button-container {
   display: flex;
   gap: 24px;

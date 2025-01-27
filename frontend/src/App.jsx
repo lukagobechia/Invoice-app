@@ -3,7 +3,10 @@ import AuthPage from "./components/authPage.jsx";
 import Dashboard from "./components/dashboard.jsx";
 import AuthGuard from "./components/authGuard.jsx";
 import Users from "./components/users.jsx";
-
+import UserDetails from "./components/userDetails.jsx";
+import InvoiceDetails from "./components/invoiceDetails.jsx";
+import InvoicesForm from "./components/invoicesForm.jsx";
+import InvoicesList from "./components/InvoicesList.jsx";
 function App() {
   return (
     <Routes>
@@ -11,6 +14,12 @@ function App() {
       <Route element={<AuthGuard />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/users/:id" element={<UserDetails />} />
+
+        <Route path="/invoices" element={<InvoicesList />} />
+        <Route path="/invoices/:id" element={<InvoiceDetails />} />
+        <Route path="/invoices/new" element={<InvoicesForm />} />
+        <Route path="/invoices/:id/edit" element={<InvoicesForm />} />
       </Route>
     </Routes>
   );
