@@ -99,6 +99,12 @@ const InvoicesList = () => {
           </Link>
         ))}
       </div>
+      <button 
+          className="button button-primary go-back"
+          onClick={() => (window.location.href = `/dashboard`)}
+        >
+          Go back
+        </button>
     </div>
   )
 }
