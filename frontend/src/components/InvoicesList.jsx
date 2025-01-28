@@ -7,25 +7,36 @@ const InvoicesList = () => {
   const [filter, setFilter] = useState("all")
   const [sortBy, setSortBy] = useState("dueDate")
   const [sortOrder, setSortOrder] = useState("asc")
+  const [toggle, setToggle] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const endpoint1 = "http://localhost:3001/invoices";
+  const endpoint2 = "http://localhost:3000/invoices/my-invoices";
+
+  const fetchInvoices = async (url) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch invoices");
+      const data = await response.json();
+      setInvoices(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/invoices", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-          },
-        })
-        if (!response.ok) throw new Error("Failed to fetch invoices")
-        const data = await response.json()
-        setInvoices(data)
-      } catch (error) {
-        console.error("Error fetching invoices:", error)
-      }
-    }
-
-    fetchInvoices()
-  }, [])
+    const url = toggle ? endpoint2 : endpoint1;
+    fetchInvoices(url);
+  }, [toggle]);
 
   const filteredInvoices = invoices
     .filter((invoice) => filter === "all" || invoice.status === filter)
@@ -67,8 +78,16 @@ const InvoicesList = () => {
           <Link to="/invoices/new" className="button button-primary">
             <span className="plus-icon">+</span> New Invoice
           </Link>
+          <button
+            className="button button-toggle"
+            onClick={() => setToggle((prev) => !prev)}
+          >
+            {toggle ? "Switch to All Invoices" : "Switch to My Invoices"}
+          </button>
         </div>
       </div>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
       <div className="invoices-grid">
         {filteredInvoices.map((invoice) => (
           <Link to={`/invoices/${invoice._id}`} key={invoice._id} className="invoice-card">
@@ -85,4 +104,3 @@ const InvoicesList = () => {
 }
 
 export default InvoicesList
-

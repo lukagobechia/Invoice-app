@@ -29,10 +29,21 @@ export class InvoicesController {
     return this.invoicesService.create(userId, createInvoiceDto);
   }
 
+  // @Get()
+  // findAll(@Req() request, @Query() queryParams: QueryParamsDto) {
+  //   const userId = request.userId;
+  //   return this.invoicesService.findAll(userId, queryParams);
+  // }
+
   @Get()
-  findAll(@Req() request, @Query() queryParams: QueryParamsDto) {
+  findAll(@Query() queryParams: QueryParamsDto) {
+    return this.invoicesService.findAll(queryParams);
+  }
+
+  @Get('my-invoices')
+  findAllByUser(@Req() request, @Query() queryParams: QueryParamsDto) {
     const userId = request.userId;
-    return this.invoicesService.findAll(userId, queryParams);
+    return this.invoicesService.findAllByUser(userId, queryParams);
   }
 
   @Get(':id')

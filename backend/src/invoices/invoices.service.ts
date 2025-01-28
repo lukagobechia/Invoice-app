@@ -33,16 +33,52 @@ export class InvoicesService {
     return invoice;
   }
 
-  async findAll(
+  // async findAll(
+  //   userId: mongoose.Schema.Types.ObjectId,
+  //   queryParams: QueryParamsDto,
+  // ) {
+  //   const { page, take } = queryParams;
+  //   const limit = Math.min(take, 50);
+  //   return this.invoiceModel
+  //     .find({ user: userId })
+  //     .skip((page - 1) * take)
+  //     .limit(page * limit)
+  //     .populate({
+  //       path: 'user',
+  //       select:
+  //         '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
+  //     })
+  //     .select('-__v -updatedAt');
+  // }
+
+  async findAll(queryParams: QueryParamsDto) {
+    const { page = 1, take = 50 } = queryParams;
+    const limit = Math.min(take, 50);
+    const skip = (page - 1) * limit;
+
+    return this.invoiceModel
+      .find()
+      .skip(skip)
+      .limit(limit)
+      .populate({
+        path: 'user',
+        select:
+          '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
+      })
+      .select('-__v -updatedAt');
+  }
+
+  async findAllByUser(
     userId: mongoose.Schema.Types.ObjectId,
     queryParams: QueryParamsDto,
   ) {
-    const { page, take } = queryParams;
+    const { page = 1, take = 50 } = queryParams;
     const limit = Math.min(take, 50);
+    const skip = (page - 1) * limit;
     return this.invoiceModel
       .find({ user: userId })
-      .skip((page - 1) * take)
-      .limit(page * limit)
+      .skip(skip)
+      .limit(limit)
       .populate({
         path: 'user',
         select:

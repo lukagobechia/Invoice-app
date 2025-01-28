@@ -79,12 +79,14 @@
     transition: background-color 0.3s ease;
   }
   
-  .button-primary {
+  .button-primary,
+  .button-toggle {
     background-color: var(--color-primary);
     color: #fff;
   }
   
-  .button-primary:hover {
+  .button-primary:hover,
+  .button-toggle:hover {
     background-color: var(--color-primary-hover);
   }
   
