@@ -40,6 +40,11 @@ const Dashboard = () => {
     }
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("jwtToken");
+    navigate("/login");
+  };
+
   return (
     <>
       <nav>
@@ -48,6 +53,9 @@ const Dashboard = () => {
           Hi,{" "}
           {currentUsers?.firstName + " " + currentUsers?.lastName || "Admin"}
         </h2>
+        <button className="button button-secondary" onClick={handleSignOut}>
+          Sign Out
+        </button>
       </nav>
       <div className="dashboard">
         <div className="dashboard-content">
