@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { DeleteConfirmation } from "./DeleteConfirmation";
 import "../styles/userDetails.css";
 
@@ -147,6 +147,9 @@ const UserDetails = () => {
 
   return (
     <div className="user-details">
+      <Link to="/users" className="back-link">
+        ← Go back
+      </Link>
       <div className="user-details-header">
         <h1>
           {user.firstName} {user.lastName}

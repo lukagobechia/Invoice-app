@@ -335,18 +335,25 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             <span className="error-message">{errors.addressPostalCode}</span>
           )}
         </div>
-
-        <button
-          type="submit"
-          className="button button-primary"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </button>
-
-        {errors.submit && (
-          <span className="error-message">{errors.submit}</span>
-        )}
+        <div className="form-actions">
+          <button
+            type="button"
+            className="button button-secondary"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="button button-primary"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+          {errors.submit && (
+            <span className="error-message">{errors.submit}</span>
+          )}{" "}
+        </div>
       </div>
     </form>
   );
