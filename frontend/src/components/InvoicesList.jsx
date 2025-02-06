@@ -12,7 +12,7 @@ const InvoicesList = () => {
   const [error, setError] = useState(null)
 
   const endpoint1 = "http://localhost:3001/invoices";
-  const endpoint2 = "http://localhost:3000/invoices/my-invoices";
+  const endpoint2 = "http://localhost:3001/invoices/my-invoices";
 
   const fetchInvoices = async (url) => {
     setLoading(true);
