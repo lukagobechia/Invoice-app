@@ -29,12 +29,6 @@ export class InvoicesController {
     return this.invoicesService.create(userId, createInvoiceDto);
   }
 
-  // @Get()
-  // findAll(@Req() request, @Query() queryParams: QueryParamsDto) {
-  //   const userId = request.userId;
-  //   return this.invoicesService.findAll(userId, queryParams);
-  // }
-
   @Get()
   findAll(@Query() queryParams: QueryParamsDto) {
     return this.invoicesService.findAll(queryParams);

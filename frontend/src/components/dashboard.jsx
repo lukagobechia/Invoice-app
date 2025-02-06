@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 
 const Dashboard = () => {
   const [users, setUsers] = useState(null);
   const [CurrentUsers, setCurrentUsers] = useState(null);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -30,7 +32,6 @@ const Dashboard = () => {
       if (response.ok) {
         const data = await response.json();
         setCurrentUsers(data);
-        console.log(data)
       } else {
         setError("Error fetching users");
       }
@@ -55,15 +56,21 @@ const Dashboard = () => {
           ) : (
             <>
               <div className="button-container">
-                {["users", "invoices"].map((route) => (
+                {CurrentUsers?.role === "admin" && (
+                    <button
+                      className="dashboard-button"
+                      onClick={() => navigate("/users")}
+                    >
+                      View Users
+                    </button>
+                  )}
                   <button
-                    key={route}
                     className="dashboard-button"
-                    onClick={() => (window.location.href = `/${route}`)}
+                    onClick={() => navigate("/invoices")}
                   >
-                    View {route.charAt(0).toUpperCase() + route.slice(1)}
+                    View Invoices
                   </button>
-                ))}
+
               </div>
             </>
           )}
