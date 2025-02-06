@@ -26,7 +26,7 @@ export class UsersController {
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
-  
+
   @UseGuards(AuthGuard, IsAdmin)
   @Get()
   findAll(@Query() query) {

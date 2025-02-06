@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react"
-import { useParams, Link, useNavigate } from "react-router-dom"
-import { DeleteConfirmation } from "./DeleteConfirmation"
-import "../styles/invoices.css"
+import React, { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { DeleteConfirmation } from "./DeleteConfirmation";
+import "../styles/invoices.css";
 
 const InvoiceDetails = () => {
-  const [invoice, setInvoice] = useState(null)
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const [invoice, setInvoice] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInvoice = async () => {
@@ -16,17 +16,17 @@ const InvoiceDetails = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
-        })
-        if (!response.ok) throw new Error("Failed to fetch invoice")
-        const data = await response.json()
-        setInvoice(data)
+        });
+        if (!response.ok) throw new Error("Failed to fetch invoice");
+        const data = await response.json();
+        setInvoice(data);
       } catch (error) {
-        console.error("Error fetching invoice:", error)
+        console.error("Error fetching invoice:", error);
       }
-    }
+    };
 
-    fetchInvoice()
-  }, [id])
+    fetchInvoice();
+  }, [id]);
 
   const handleDelete = async () => {
     try {
@@ -35,13 +35,13 @@ const InvoiceDetails = () => {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
-      })
-      if (!response.ok) throw new Error("Failed to delete invoice")
-      navigate("/invoices")
+      });
+      if (!response.ok) throw new Error("Failed to delete invoice");
+      navigate("/invoices");
     } catch (error) {
-      console.error("Error deleting invoice:", error)
+      console.error("Error deleting invoice:", error);
     }
-  }
+  };
 
   const handleStatusChange = async (newStatus) => {
     try {
@@ -52,16 +52,16 @@ const InvoiceDetails = () => {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
         body: JSON.stringify({ status: newStatus }),
-      })
-      if (!response.ok) throw new Error("Failed to update invoice status")
-      const updatedInvoice = await response.json()
-      setInvoice(updatedInvoice)
+      });
+      if (!response.ok) throw new Error("Failed to update invoice status");
+      const updatedInvoice = await response.json();
+      setInvoice(updatedInvoice);
     } catch (error) {
-      console.error("Error updating invoice status:", error)
+      console.error("Error updating invoice status:", error);
     }
-  }
+  };
 
-  if (!invoice) return <div>Loading...</div>
+  if (!invoice) return <div>Loading...</div>;
 
   return (
     <div className="invoice-details">
@@ -76,16 +76,25 @@ const InvoiceDetails = () => {
           <Link to={`/invoices/${id}/edit`} className="button button-secondary">
             Edit
           </Link>
-          <button onClick={() => setIsDeleteModalOpen(true)} className="button button-delete">
+          <button
+            onClick={() => setIsDeleteModalOpen(true)}
+            className="button button-delete"
+          >
             Delete
           </button>
           {invoice.status !== "paid" && (
-            <button onClick={() => handleStatusChange("paid")} className="button button-primary">
+            <button
+              onClick={() => handleStatusChange("paid")}
+              className="button button-primary"
+            >
               Mark as Paid
             </button>
           )}
           {invoice.status === "draft" && (
-            <button onClick={() => handleStatusChange("pending")} className="button button-secondary">
+            <button
+              onClick={() => handleStatusChange("pending")}
+              className="button button-secondary"
+            >
               Send Invoice
             </button>
           )}
@@ -166,8 +175,7 @@ const InvoiceDetails = () => {
         itemType="invoice"
       />
     </div>
-  )
-}
+  );
+};
 
-export default InvoiceDetails
-
+export default InvoiceDetails;

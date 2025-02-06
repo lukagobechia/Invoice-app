@@ -55,7 +55,7 @@ body {
   background-color: var(--color-primary);
   color: white;
 }
-.go-back{
+.go-back {
   margin-top: 20px;
 }
 .button-primary:hover {
@@ -100,4 +100,3 @@ body {
     justify-content: center;
   }
 }
-

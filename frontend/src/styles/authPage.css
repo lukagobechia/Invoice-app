@@ -1,130 +1,131 @@
 .auth-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1E2139;
-  }
-  
-  .auth-card {
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
-    background-color: #252945;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-  
-  .auth-header {
-    margin-bottom: 2rem;
-  }
-  
-  .auth-header h1 {
-    font-size: 1.875rem;
-    font-weight: bold;
-    color: #F8F8FB;
-    margin-bottom: 0.5rem;
-  }
-  
-  .auth-header p {
-    color: #DFE3FA;
-  }
-  
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: left;
-  }
-  
-  .form-group label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #F8F8FB;
-  }
-  
-  .form-group input {
-    padding: 0.5rem 0.75rem;
-    background-color: #1E2139;
-    border: 1px solid #252945;
-    border-radius: 0.25rem;
-    color: #F8F8FB;
-  }
-  
-  .form-group input::placeholder {
-    color: #888EB0;
-  }
-  
-  .form-group input:focus {
-    outline: none;
-    border-color: #7C5DFA;
-    box-shadow: 0 0 0 2px rgba(124, 93, 250, 0.2);
-  }
-  
-  .form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .remember-me {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .remember-me label {
-    font-size: 0.875rem;
-    color: #DFE3FA;
-  }
-  
-  .forgot-password {
-    font-size: 0.875rem;
-    color: #7C5DFA;
-    text-decoration: none;
-  }
-  
-  .forgot-password:hover {
-    color: #9277FF;
-  }
-  
-  .submit-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #7C5DFA;
-    color: white;
-    border: none;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .submit-button:hover {
-    background-color: #9277FF;
-  }
-  
-  .signup-prompt {
-    font-size: 0.875rem;
-    color: #DFE3FA;
-  }
-  
-  .signup-link {
-    color: #7C5DFA;
-    text-decoration: none;
-  }
-  
-  .signup-link:hover {
-    color: #9277FF;
-  }
-  
-  .error-message{
-    color: red;
-  }
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e2139;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: #252945;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.auth-header {
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #f8f8fb;
+  margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+  color: #dfe3fa;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #f8f8fb;
+}
+
+.form-group input {
+  padding: 0.5rem 0.75rem;
+  background-color: #1e2139;
+  border: 1px solid #252945;
+  border-radius: 0.25rem;
+  color: #f8f8fb;
+}
+
+.form-group input::placeholder {
+  color: #888eb0;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #7c5dfa;
+  box-shadow: 0 0 0 2px rgba(124, 93, 250, 0.2);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remember-me label {
+  font-size: 0.875rem;
+  color: #dfe3fa;
+}
+
+.forgot-password {
+  font-size: 0.875rem;
+  color: #7c5dfa;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #9277ff;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #7c5dfa;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #9277ff;
+}
+
+.signup-prompt {
+  font-size: 0.875rem;
+  color: #dfe3fa;
+}
+
+.signup-link {
+  color: #7c5dfa;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  color: #9277ff;
+}
+
+.error-message {
+  color: red;
+}

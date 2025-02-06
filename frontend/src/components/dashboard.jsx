@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 
 const Dashboard = () => {
-  const [users, setUsers] = useState(null);
-  const [CurrentUsers, setCurrentUsers] = useState(null);
+  const [currentUsers, setCurrentUsers] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -46,7 +45,8 @@ const Dashboard = () => {
       <nav>
         <h1 className="dashboard-title">Welcome to Admin Panel</h1>
         <h2 className="user">
-          Hi, {CurrentUsers?.firstName + " " + CurrentUsers?.lastName || "Admin"}
+          Hi,{" "}
+          {currentUsers?.firstName + " " + currentUsers?.lastName || "Admin"}
         </h2>
       </nav>
       <div className="dashboard">
@@ -56,21 +56,20 @@ const Dashboard = () => {
           ) : (
             <>
               <div className="button-container">
-                {CurrentUsers?.role === "admin" && (
-                    <button
-                      className="dashboard-button"
-                      onClick={() => navigate("/users")}
-                    >
-                      View Users
-                    </button>
-                  )}
+                {currentUsers?.role === "admin" && (
                   <button
                     className="dashboard-button"
-                    onClick={() => navigate("/invoices")}
+                    onClick={() => navigate("/users")}
                   >
-                    View Invoices
+                    View Users
                   </button>
-
+                )}
+                <button
+                  className="dashboard-button"
+                  onClick={() => navigate("/invoices")}
+                >
+                  View Invoices
+                </button>
               </div>
             </>
           )}

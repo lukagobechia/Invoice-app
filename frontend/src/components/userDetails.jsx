@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { DeleteConfirmation } from "./DeleteConfirmation"
-import "../styles/userDetails.css"
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { DeleteConfirmation } from "./DeleteConfirmation";
+import "../styles/userDetails.css";
 
 const UserDetails = () => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [isEditing, setIsEditing] = useState(false)
-  const [deleteConfirmation, setDeleteConfirmation] = useState({ show: false })
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState({ show: false });
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUserDetails()
-  }, [id])
+    fetchUserDetails();
+  }, [id]);
 
   const fetchUserDetails = async () => {
-    const token = localStorage.getItem("jwtToken")
+    const token = localStorage.getItem("jwtToken");
     if (!token) {
-      setError("JWT token is not provided")
-      setLoading(false)
-      return
+      setError("JWT token is not provided");
+      setLoading(false);
+      return;
     }
 
     try {
@@ -31,20 +31,20 @@ const UserDetails = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        setUser(data)
+        const data = await response.json();
+        setUser(data);
       } else {
-        setError("Error fetching user details")
+        setError("Error fetching user details");
       }
     } catch (error) {
-      setError("Error fetching user details")
+      setError("Error fetching user details");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleEdit = async (updatedUser) => {
     const token = localStorage.getItem("jwtToken");
@@ -108,16 +108,15 @@ const UserDetails = () => {
     }
   };
 
-
   const handleDelete = () => {
-    setDeleteConfirmation({ show: true })
-  }
+    setDeleteConfirmation({ show: true });
+  };
 
   const confirmDelete = async () => {
-    const token = localStorage.getItem("jwtToken")
+    const token = localStorage.getItem("jwtToken");
     if (!token) {
-      setError("JWT token is not provided")
-      return
+      setError("JWT token is not provided");
+      return;
     }
 
     try {
@@ -127,23 +126,24 @@ const UserDetails = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       if (response.ok) {
-        navigate("/users")
+        navigate("/users");
       } else {
-        setError("Error deleting user")
+        setError("Error deleting user");
       }
     } catch (error) {
-      setError("Error deleting user")
+      setError("Error deleting user");
     } finally {
-      setDeleteConfirmation({ show: false })
+      setDeleteConfirmation({ show: false });
     }
-  }
+  };
 
-  if (loading) return <div className="user-details-loading">Loading...</div>
-  if (error) return <div className="user-details-error">{error}</div>
-  if (!user) return <div className="user-details-not-found">User not found</div>
+  if (loading) return <div className="user-details-loading">Loading...</div>;
+  if (error) return <div className="user-details-error">{error}</div>;
+  if (!user)
+    return <div className="user-details-not-found">User not found</div>;
 
   return (
     <div className="user-details">
@@ -152,7 +152,10 @@ const UserDetails = () => {
           {user.firstName} {user.lastName}
         </h1>
         <div className="user-details-actions">
-          <button className="button button-secondary" onClick={() => setIsEditing(!isEditing)}>
+          <button
+            className="button button-secondary"
+            onClick={() => setIsEditing(!isEditing)}
+          >
             {isEditing ? "Cancel" : "Edit"}
           </button>
           <button className="button button-delete" onClick={handleDelete}>
@@ -169,7 +172,11 @@ const UserDetails = () => {
         </div>
         <div className="user-details-info">
           {isEditing ? (
-            <UserEditForm user={user} onSave={handleEdit} onCancel={() => setIsEditing(false)} />
+            <UserEditForm
+              user={user}
+              onSave={handleEdit}
+              onCancel={() => setIsEditing(false)}
+            />
           ) : (
             <UserInfo user={user} />
           )}
@@ -182,8 +189,8 @@ const UserDetails = () => {
         itemType="user"
       />
     </div>
-  )
-}
+  );
+};
 
 const UserInfo = ({ user }) => (
   <div className="user-info-grid">
@@ -203,14 +210,14 @@ const UserInfo = ({ user }) => (
       <InfoField label="State" value={user.address.state} />
     </div>
   </div>
-)
+);
 
 const InfoField = ({ label, value }) => (
   <div className="user-details-field">
     <span className="field-label">{label}:</span>
     <span className="field-value">{value}</span>
   </div>
-)
+);
 
 const UserEditForm = ({ user, onSave, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -346,7 +353,11 @@ const UserEditForm = ({ user, onSave, onCancel }) => {
         </div>
       </div>
       <div className="form-actions">
-        <button type="button" className="button button-secondary" onClick={onCancel}>
+        <button
+          type="button"
+          className="button button-secondary"
+          onClick={onCancel}
+        >
           Cancel
         </button>
         <button type="submit" className="button button-primary">
@@ -357,7 +368,15 @@ const UserEditForm = ({ user, onSave, onCancel }) => {
   );
 };
 
-const FormField = ({ label, name, value, onChange, error, children, type = "text" }) => (
+const FormField = ({
+  label,
+  name,
+  value,
+  onChange,
+  error,
+  children,
+  type = "text",
+}) => (
   <div className="form-field">
     <label htmlFor={name}>{label}</label>
     {type === "select" ? (
