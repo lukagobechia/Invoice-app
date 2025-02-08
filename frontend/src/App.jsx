@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import AuthPage from "./components/authPage.jsx";
 import Dashboard from "./components/dashboard.jsx";
 import AuthGuard from "./components/authGuard.jsx";
@@ -10,6 +11,11 @@ import InvoicesForm from "./components/invoicesForm.jsx";
 import InvoicesList from "./components/InvoicesList.jsx";
 
 function App() {
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme") || "dark";
+    document.documentElement.setAttribute("data-theme", storedTheme);
+  }, []);
+
   return (
     <Routes>
       <Route path="/login" element={<AuthPage />} />

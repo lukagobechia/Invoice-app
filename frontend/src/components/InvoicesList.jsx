@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "../styles/invoices.css";
 
@@ -10,53 +10,72 @@ const InvoicesList = () => {
   const [toggle, setToggle] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const endpoint1 = "http://localhost:3001/invoices";
   const endpoint2 = "http://localhost:3001/invoices/my-invoices";
+  const pageSize = 5;
 
-  const fetchInvoices = async (url) => {
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter]);
+
+  const fetchInvoices = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-        },
-      });
-      if (!response.ok) throw new Error("Failed to fetch invoices");
+      const url = toggle ? endpoint2 : endpoint1;
+      const response = await fetch(
+        `${url}?page=${currentPage}&take=${pageSize}&status=${filter}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch invoices");
+      }
+
       const data = await response.json();
-      setInvoices(data);
-    } catch (error) {
-      setError(error.message);
+      setInvoices(data.invoices);
+      setTotalPages(Math.ceil(data.total / pageSize));
+    } catch (err) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [toggle, currentPage, filter]);
 
   useEffect(() => {
-    const url = toggle ? endpoint2 : endpoint1;
-    fetchInvoices(url);
-  }, [toggle]);
+    fetchInvoices();
+  }, [fetchInvoices]);
 
-  const filteredInvoices = invoices
-    .filter((invoice) => filter === "all" || invoice.status === filter)
-    .sort((a, b) => {
-      if (sortBy === "dueDate") {
-        return sortOrder === "asc"
-          ? new Date(a.paymentDue) - new Date(b.paymentDue)
-          : new Date(b.paymentDue) - new Date(a.paymentDue);
-      } else if (sortBy === "total") {
-        return sortOrder === "asc" ? a.total - b.total : b.total - a.total;
-      }
-      return 0;
-    });
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const sortedInvoices = invoices.sort((a, b) => {
+    if (sortBy === "dueDate") {
+      return sortOrder === "asc"
+        ? new Date(a.paymentDue) - new Date(b.paymentDue)
+        : new Date(b.paymentDue) - new Date(a.paymentDue);
+    } else if (sortBy === "total") {
+      return sortOrder === "asc" ? a.total - b.total : b.total - a.total;
+    }
+    return 0;
+  });
 
   return (
     <div className="invoices-list">
       <div className="invoices-header">
         <div>
           <h1>Invoices</h1>
-          <p>{filteredInvoices.length} invoices</p>
+          <p>{sortedInvoices.length} invoices</p>
         </div>
         <div className="invoices-actions">
           <select
@@ -79,7 +98,11 @@ const InvoicesList = () => {
           </select>
           <button
             className="button button-secondary"
-            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+            onClick={() =>
+              setSortOrder((prevOrder) =>
+                prevOrder === "asc" ? "desc" : "asc"
+              )
+            }
           >
             {sortOrder === "asc" ? "↑" : "↓"}
           </button>
@@ -94,10 +117,12 @@ const InvoicesList = () => {
           </button>
         </div>
       </div>
+
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
       <div className="invoices-grid">
-        {filteredInvoices.map((invoice) => (
+        {sortedInvoices.map((invoice) => (
           <Link
             to={`/invoices/${invoice._id}`}
             key={invoice._id}
@@ -115,6 +140,27 @@ const InvoicesList = () => {
           </Link>
         ))}
       </div>
+
+      <div className="pagination">
+        <button
+          className="button button-secondary"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="button button-secondary"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage >= totalPages}
+        >
+          Next
+        </button>
+      </div>
+
       <button
         className="button button-primary go-back"
         onClick={() => (window.location.href = `/`)}

@@ -11,9 +11,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchUsers();
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  }, []);
 
   const fetchUsers = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -50,7 +48,10 @@ const Dashboard = () => {
   };
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   return (
