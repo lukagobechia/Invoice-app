@@ -14,7 +14,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<AuthPage />} />
       <Route element={<AuthGuard />}>
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
         <Route element={<AdminGuard />}>
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserDetails />} />

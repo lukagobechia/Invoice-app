@@ -11,7 +11,7 @@ const AdminGuard = () => {
   try {
     const decoded = JSON.parse(atob(token.split(".")[1]));
     if (decoded.role !== "admin") {
-      return <Navigate to="/dashboard" />; // Redirect non-admins to dashboard
+      return <Navigate to="/" />; // Redirect non-admins to dashboard
     }
     return <Outlet />; // Allow access to admin routes
   } catch (e) {

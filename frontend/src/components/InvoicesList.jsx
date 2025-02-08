@@ -90,7 +90,7 @@ const InvoicesList = () => {
             className="button button-toggle"
             onClick={() => setToggle((prev) => !prev)}
           >
-            {toggle ? "Switch to All Invoices" : "Switch to My Invoices"}
+            {toggle ? "All Invoices" : "My Invoices"}
           </button>
         </div>
       </div>
@@ -117,7 +117,7 @@ const InvoicesList = () => {
       </div>
       <button
         className="button button-primary go-back"
-        onClick={() => (window.location.href = `/dashboard`)}
+        onClick={() => (window.location.href = `/`)}
       >
         Go back
       </button>

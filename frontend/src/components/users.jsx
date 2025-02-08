@@ -62,7 +62,7 @@ const Users = () => {
       )}
       <button
         className="button button-primary go-back"
-        onClick={() => (window.location.href = `/dashboard`)}
+        onClick={() => (window.location.href = `/`)}
       >
         Go back
       </button>
