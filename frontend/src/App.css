@@ -2,7 +2,38 @@
 * {
   font-family: "League Spartan", sans-serif;
 }
+
+:root {
+  --color-background: #1e2139;
+  --color-text: #f8f8fb;
+  --color-primary: #7c5dfa;
+  --color-primary-hover: #9277ff;
+  --color-secondary: #252945;
+  --color-secondary-hover: #1e2139;
+  --color-delete: #ec5757;
+  --color-delete-hover: #ff9797;
+  --color-border: #252945;
+}
+
+[data-theme="light"] {
+  --color-background: #ffffff;
+  --color-text: #1e2139;
+  --color-primary: #7c5dfa;
+  --color-primary-hover: #6d28d9;
+  --color-secondary: #f0f0f5;
+  --color-secondary-hover: #d9d9e2;
+  --color-delete: #e74c3c;
+  --color-delete-hover: #c0392b;
+  --color-border: #dcdcdc;
+}
+
+html,
 body {
-  padding: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
   margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

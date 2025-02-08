@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DashboardImage from "../assets/Email campaign_Flatline.png";
 import "../styles/dashboard.css";
 
 const Dashboard = () => {
   const [currentUsers, setCurrentUsers] = useState(null);
   const [error, setError] = useState("");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const fetchUsers = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -45,19 +49,33 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
   return (
     <>
       <nav>
         <h1 className="dashboard-title">Welcome to Admin Panel</h1>
-        <h2 className="user">
-          Hi,{" "}
-          {currentUsers?.firstName + " " + currentUsers?.lastName || "Admin"}
-        </h2>
-        <button className="button button-secondary" onClick={handleSignOut}>
-          Sign Out
-        </button>
+        <div className="user-section">
+          <h2 className="user">
+            Hi,{" "}
+            {currentUsers?.firstName + " " + currentUsers?.lastName || "Admin"}
+          </h2>
+          <button className="button theme-toggle-button" onClick={toggleTheme}>
+            {theme === "dark" ? "Light Mode ☀️" : "Dark Mode 🌙"}
+          </button>
+          <button className="button sign-out-button" onClick={handleSignOut}>
+            Sign Out
+          </button>
+        </div>
       </nav>
       <div className="dashboard">
+        <img
+          src={DashboardImage}
+          alt="Dashboard Illustration"
+          className="dashboard-image"
+        />
         <div className="dashboard-content">
           {error ? (
             <p className="error-message">{error}</p>

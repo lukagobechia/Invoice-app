@@ -1,11 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap");
-* {
-  font-family: "League Spartan", sans-serif;
-}
-html,
-body {
-  background-color: hwb(233 12% 78%);
-}
 nav {
   display: flex;
   flex-direction: row;
@@ -13,8 +5,9 @@ nav {
   align-items: center;
   width: 100%;
 }
+
 .dashboard {
-  height: 70vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -27,15 +20,14 @@ nav {
 
 .dashboard-title {
   font-size: 2.5rem;
-  color: white;
-
   margin: 2rem;
   font-weight: 700;
 }
+
 .user {
-  color: #fff;
   margin: 0 40px 0 0;
 }
+
 .button-container {
   display: flex;
   gap: 24px;
@@ -67,6 +59,42 @@ nav {
 .button-icon {
   width: 20px;
   height: 20px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 40px;
+}
+
+.sign-out-button,
+.theme-toggle-button {
+  height: 40px;
+  padding: 0 15px;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border: none;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sign-out-button:hover,
+.theme-toggle-button:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.dashboard-image {
+  width: 100%;
+  max-width: 200px;
+  margin: 40px auto;
+  display: block;
 }
 
 @media (max-width: 768px) {

@@ -13,13 +13,6 @@
   --border-radius: 8px;
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-family: "Arial", sans-serif;
-  line-height: 1.6;
-}
-
 .user-details {
   max-width: 1000px;
   margin: 2rem auto;
@@ -40,7 +33,6 @@ body {
 .user-details-header h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--color-heading);
   margin: 0;
 }
 
@@ -93,10 +85,6 @@ body {
   color: var(--color-primary);
   display: block;
   margin-bottom: 0.5rem;
-}
-
-.field-value {
-  color: var(--color-heading);
 }
 
 .form-field input,

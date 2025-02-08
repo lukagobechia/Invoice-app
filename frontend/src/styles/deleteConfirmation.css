@@ -20,12 +20,10 @@
 .delete-confirmation-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
   margin-bottom: 1rem;
 }
 
 .delete-confirmation-message {
-  color: #dfe3fa;
   margin-bottom: 1.5rem;
 }
 
