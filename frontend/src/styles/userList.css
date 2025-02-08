@@ -1,29 +1,28 @@
 .user-list {
-  background-color: #252945;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .user-list-header {
-  padding: 1rem;
-  background-color: #1e2139;
+  font-weight: 600;
   border-bottom: 1px solid #252945;
 }
 
 .user-grid {
   display: grid;
+  background-color: var(--color-secondary);
   grid-template-columns: 2fr 2fr 1fr 1.5fr 1fr;
-  gap: 1rem;
   padding: 1rem;
   align-items: center;
 }
 
 .user-list-body .user-grid {
   border-bottom: 1px solid #1e2139;
+  gap: 1rem;
 }
 
 .user-list-body .user-grid:hover {
-  background-color: #1e2139;
+  background-color: var(--color-secondary-hover);
 }
 
 .user-name {

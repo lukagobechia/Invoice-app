@@ -10,15 +10,6 @@
   --color-border: #252945;
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-family: "Arial", sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-}
-
 .container {
   padding: 2rem;
   min-height: 100vh;

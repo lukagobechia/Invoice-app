@@ -13,12 +13,6 @@
   --color-paid: #33d69f;
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-family: "Arial", sans-serif;
-}
-
 .invoices-list,
 .invoice-details,
 .invoices-form {
