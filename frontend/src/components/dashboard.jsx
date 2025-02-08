@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DashboardImage from "../assets/Email campaign_Flatline.png";
 import "../styles/dashboard.css";
 
 const Dashboard = () => {
@@ -70,6 +71,11 @@ const Dashboard = () => {
         </div>
       </nav>
       <div className="dashboard">
+        <img
+          src={DashboardImage}
+          alt="Dashboard Illustration"
+          className="dashboard-image"
+        />
         <div className="dashboard-content">
           {error ? (
             <p className="error-message">{error}</p>

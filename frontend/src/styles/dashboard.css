@@ -7,7 +7,7 @@ nav {
 }
 
 .dashboard {
-  height: 70vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -88,6 +88,13 @@ nav {
 .sign-out-button:hover,
 .theme-toggle-button:hover {
   background-color: var(--color-secondary-hover);
+}
+
+.dashboard-image {
+  width: 100%;
+  max-width: 200px;
+  margin: 40px auto;
+  display: block;
 }
 
 @media (max-width: 768px) {
