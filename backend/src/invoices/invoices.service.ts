@@ -34,39 +34,60 @@ export class InvoicesService {
   }
 
   async findAll(queryParams: QueryParamsDto) {
-    const { page = 1, take = 50 } = queryParams;
+    const { page = 1, take = 50, status } = queryParams;
     const limit = Math.min(take, 50);
     const skip = (page - 1) * limit;
 
-    return this.invoiceModel
-      .find()
-      .skip(skip)
-      .limit(limit)
-      .populate({
-        path: 'user',
-        select:
-          '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
-      })
-      .select('-__v -updatedAt');
+    const filter: any = {};
+    if (status && status !== 'all') {
+      filter.status = status;
+    }
+
+    const [invoices, total] = await Promise.all([
+      this.invoiceModel
+        .find(filter)
+        .skip(skip)
+        .limit(limit)
+        .populate({
+          path: 'user',
+          select:
+            '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
+        })
+        .select('-__v -updatedAt'),
+      this.invoiceModel.countDocuments(filter),
+    ]);
+
+    return { invoices, total };
   }
 
   async findAllByUser(
     userId: mongoose.Schema.Types.ObjectId,
     queryParams: QueryParamsDto,
   ) {
-    const { page = 1, take = 50 } = queryParams;
+    const { page = 1, take = 50, status } = queryParams;
     const limit = Math.min(take, 50);
     const skip = (page - 1) * limit;
-    return this.invoiceModel
-      .find({ user: userId })
-      .skip(skip)
-      .limit(limit)
-      .populate({
-        path: 'user',
-        select:
-          '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
-      })
-      .select('-__v -updatedAt');
+
+    const filter: any = { user: userId };
+    if (status && status !== 'all') {
+      filter.status = status;
+    }
+
+    const [invoices, total] = await Promise.all([
+      this.invoiceModel
+        .find(filter)
+        .skip(skip)
+        .limit(limit)
+        .populate({
+          path: 'user',
+          select:
+            '-password -createdAt -updatedAt -dob -phoneNumber -address -company -invoices -__v',
+        })
+        .select('-__v -updatedAt'),
+      this.invoiceModel.countDocuments(filter),
+    ]);
+
+    return { invoices, total };
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
