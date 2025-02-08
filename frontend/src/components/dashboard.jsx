@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 
 const Dashboard = () => {
-  const [users, setUsers] = useState(null);
-  const [CurrentUsers, setCurrentUsers] = useState(null);
+  const [currentUsers, setCurrentUsers] = useState(null);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -30,7 +31,6 @@ const Dashboard = () => {
       if (response.ok) {
         const data = await response.json();
         setCurrentUsers(data);
-        console.log(data)
       } else {
         setError("Error fetching users");
       }
@@ -40,13 +40,22 @@ const Dashboard = () => {
     }
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("jwtToken");
+    navigate("/login");
+  };
+
   return (
     <>
       <nav>
         <h1 className="dashboard-title">Welcome to Admin Panel</h1>
         <h2 className="user">
-          Hi, {CurrentUsers?.firstName + " " + CurrentUsers?.lastName || "Admin"}
+          Hi,{" "}
+          {currentUsers?.firstName + " " + currentUsers?.lastName || "Admin"}
         </h2>
+        <button className="button button-secondary" onClick={handleSignOut}>
+          Sign Out
+        </button>
       </nav>
       <div className="dashboard">
         <div className="dashboard-content">
@@ -55,15 +64,20 @@ const Dashboard = () => {
           ) : (
             <>
               <div className="button-container">
-                {["users", "invoices"].map((route) => (
+                {currentUsers?.role === "admin" && (
                   <button
-                    key={route}
                     className="dashboard-button"
-                    onClick={() => (window.location.href = `/${route}`)}
+                    onClick={() => navigate("/users")}
                   >
-                    View {route.charAt(0).toUpperCase() + route.slice(1)}
+                    View Users
                   </button>
-                ))}
+                )}
+                <button
+                  className="dashboard-button"
+                  onClick={() => navigate("/invoices")}
+                >
+                  View Invoices
+                </button>
               </div>
             </>
           )}

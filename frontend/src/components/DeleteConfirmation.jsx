@@ -1,7 +1,12 @@
-import React from 'react';
-import '../styles/DeleteConfirmation.css';
+import React from "react";
+import "../styles/DeleteConfirmation.css";
 
-export function DeleteConfirmation({ isOpen, onClose, onConfirm, itemType = 'item' }) {
+export function DeleteConfirmation({
+  isOpen,
+  onClose,
+  onConfirm,
+  itemType = "item",
+}) {
   if (!isOpen) return null;
 
   return (
@@ -12,16 +17,10 @@ export function DeleteConfirmation({ isOpen, onClose, onConfirm, itemType = 'ite
           {`Are you sure you want to delete this ${itemType}? This action cannot be undone.`}
         </p>
         <div className="delete-confirmation-actions">
-          <button
-            onClick={onClose}
-            className="button button-secondary"
-          >
+          <button onClick={onClose} className="button button-secondary">
             Cancel
           </button>
-          <button
-            onClick={onConfirm}
-            className="button button-delete"
-          >
+          <button onClick={onConfirm} className="button button-delete">
             Delete
           </button>
         </div>
@@ -29,4 +28,3 @@ export function DeleteConfirmation({ isOpen, onClose, onConfirm, itemType = 'ite
     </div>
   );
 }
-

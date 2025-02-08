@@ -1,64 +1,62 @@
 .delete-confirmation-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-  }
-  
-  .delete-confirmation-modal {
-    background-color: #1E2139;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    max-width: 28rem;
-    width: 100%;
-    margin: 0 1rem;
-  }
-  
-  .delete-confirmation-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 1rem;
-  }
-  
-  .delete-confirmation-message {
-    color: #DFE3FA;
-    margin-bottom: 1.5rem;
-  }
-  
-  .delete-confirmation-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-  }
-  
-  .button {
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button-secondary {
-    background-color: #252945;
-    color: #DFE3FA;
-  }
-  
-  .button-secondary:hover {
-    background-color: #1E2139;
-  }
-  
-  .button-delete {
-    background-color: #EC5757;
-    color: white;
-  }
-  
-  .button-delete:hover {
-    background-color: #FF9797;
-  }
-  
-  
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.delete-confirmation-modal {
+  background-color: #1e2139;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  max-width: 28rem;
+  width: 100%;
+  margin: 0 1rem;
+}
+
+.delete-confirmation-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.delete-confirmation-message {
+  color: #dfe3fa;
+  margin-bottom: 1.5rem;
+}
+
+.delete-confirmation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-secondary {
+  background-color: #252945;
+  color: #dfe3fa;
+}
+
+.button-secondary:hover {
+  background-color: #1e2139;
+}
+
+.button-delete {
+  background-color: #ec5757;
+  color: white;
+}
+
+.button-delete:hover {
+  background-color: #ff9797;
+}

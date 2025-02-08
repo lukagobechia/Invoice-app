@@ -15,10 +15,17 @@ import mongoose from 'mongoose';
 import { IsValidObjectIdPipe } from 'src/pipes/isValidObjectId.pipe';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { IsAdmin } from 'src/auth/guards/role.guard';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @UseGuards(AuthGuard, IsAdmin)
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
 
   @UseGuards(AuthGuard, IsAdmin)
   @Get()

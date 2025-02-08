@@ -9,6 +9,7 @@ import { QueryParamsDto } from './dto/query-Params.dto';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+
   async create(createUserDto: CreateUserDto) {
     const newuser = await this.userModel.create(createUserDto);
     if (!newuser) throw new BadRequestException('User could not be created');
@@ -37,6 +38,7 @@ export class UsersService {
       .select('+password');
     return user;
   }
+
   async update(
     id: mongoose.Schema.Types.ObjectId,
     updateUserDto: UpdateUserDto,
@@ -85,7 +87,7 @@ export class UsersService {
 
     return updatedUser;
   }
-  
+
   async removeInvoice(userId, invoiceId) {
     const user = await this.userModel.findById(userId);
     if (!user) throw new BadRequestException('User Not Found');

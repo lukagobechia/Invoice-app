@@ -26,7 +26,7 @@ function AuthPage() {
 
         localStorage.setItem("jwtToken", data.accessToken);
 
-        navigate("/dashboard");
+        navigate("/");
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Failed to sign in");

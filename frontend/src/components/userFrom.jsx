@@ -54,13 +54,18 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
     if (!formData.lastName) newErrors.lastName = "Last name is required";
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.email.includes("@")) newErrors.email = "Email must be valid";
-    if (!formData.phoneNumber) newErrors.phoneNumber = "Phone number is required";
-    if (!formData.phoneNumber.match(/^\+?[1-9]\d{1,14}$/)) newErrors.phoneNumber = "Phone number must be valid";
+    if (!formData.phoneNumber)
+      newErrors.phoneNumber = "Phone number is required";
+    if (!formData.phoneNumber.match(/^\+?[1-9]\d{1,14}$/))
+      newErrors.phoneNumber = "Phone number must be valid";
     if (!formData.dob) newErrors.dob = "Date of birth is required";
-    if (!formData.address.street) newErrors.addressStreet = "Street address is required";
+    if (!formData.address.street)
+      newErrors.addressStreet = "Street address is required";
     if (!formData.address.city) newErrors.addressCity = "City is required";
-    if (!formData.address.postalCode) newErrors.addressPostalCode = "Postal code is required";
-    if (!formData.address.country) newErrors.addressCountry = "Country is required";
+    if (!formData.address.postalCode)
+      newErrors.addressPostalCode = "Postal code is required";
+    if (!formData.address.country)
+      newErrors.addressCountry = "Country is required";
 
     if (!initialData) {
       if (!formData.password) newErrors.password = "Password is required";
@@ -125,7 +130,10 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
 
   const checkPasswordMatch = () => {
     if (formData.password !== formData.confirmPassword) {
-      setErrors((prev) => ({ ...prev, confirmPassword: "Passwords do not match" }));
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Passwords do not match",
+      }));
     } else {
       setErrors((prev) => ({ ...prev, confirmPassword: "" }));
     }
@@ -148,7 +156,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             onChange={handleChange}
             className={errors.firstName ? "error" : ""}
           />
-          {errors.firstName && <span className="error-message">{errors.firstName}</span>}
+          {errors.firstName && (
+            <span className="error-message">{errors.firstName}</span>
+          )}
         </div>
 
         <div className="form-group">
@@ -161,7 +171,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             onChange={handleChange}
             className={errors.lastName ? "error" : ""}
           />
-          {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+          {errors.lastName && (
+            <span className="error-message">{errors.lastName}</span>
+          )}
         </div>
 
         <div className="form-group">
@@ -174,7 +186,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             onChange={handleChange}
             className={errors.email ? "error" : ""}
           />
-          {errors.email && <span className="error-message">{errors.email}</span>}
+          {errors.email && (
+            <span className="error-message">{errors.email}</span>
+          )}
         </div>
 
         {!initialData && (
@@ -190,11 +204,16 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
                   onChange={handleChange}
                   className={errors.password ? "error" : ""}
                 />
-                <button type="button" onClick={() => togglePasswordVisibility("password")}>
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility("password")}
+                >
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
-              {errors.password && <span className="error-message">{errors.password}</span>}
+              {errors.password && (
+                <span className="error-message">{errors.password}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -209,11 +228,16 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
                   onBlur={checkPasswordMatch}
                   className={errors.confirmPassword ? "error" : ""}
                 />
-                <button type="button" onClick={() => togglePasswordVisibility("confirmPassword")}>
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility("confirmPassword")}
+                >
                   {showConfirmPassword ? "Hide" : "Show"}
                 </button>
               </div>
-              {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+              {errors.confirmPassword && (
+                <span className="error-message">{errors.confirmPassword}</span>
+              )}
             </div>
           </>
         )}
@@ -256,7 +280,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             onChange={handleChange}
             className={errors.phoneNumber ? "error" : ""}
           />
-          {errors.phoneNumber && <span className="error-message">{errors.phoneNumber}</span>}
+          {errors.phoneNumber && (
+            <span className="error-message">{errors.phoneNumber}</span>
+          )}
         </div>
 
         <div className="form-group">
@@ -269,7 +295,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             placeholder="Street"
             className={errors.addressStreet ? "error" : ""}
           />
-          {errors.addressStreet && <span className="error-message">{errors.addressStreet}</span>}
+          {errors.addressStreet && (
+            <span className="error-message">{errors.addressStreet}</span>
+          )}
 
           <input
             type="text"
@@ -279,7 +307,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             placeholder="City"
             className={errors.addressCity ? "error" : ""}
           />
-          {errors.addressCity && <span className="error-message">{errors.addressCity}</span>}
+          {errors.addressCity && (
+            <span className="error-message">{errors.addressCity}</span>
+          )}
 
           <input
             type="text"
@@ -289,7 +319,9 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             placeholder="Country"
             className={errors.addressCountry ? "error" : ""}
           />
-          {errors.addressCountry && <span className="error-message">{errors.addressCountry}</span>}
+          {errors.addressCountry && (
+            <span className="error-message">{errors.addressCountry}</span>
+          )}
 
           <input
             type="text"
@@ -299,14 +331,29 @@ const UserForm = ({ onSubmit, onCancel, initialData }) => {
             placeholder="Postal Code"
             className={errors.addressPostalCode ? "error" : ""}
           />
-          {errors.addressPostalCode && <span className="error-message">{errors.addressPostalCode}</span>}
+          {errors.addressPostalCode && (
+            <span className="error-message">{errors.addressPostalCode}</span>
+          )}
         </div>
-
-        <button type="submit" className="button button-primary" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </button>
-
-        {errors.submit && <span className="error-message">{errors.submit}</span>}
+        <div className="form-actions">
+          <button
+            type="button"
+            className="button button-secondary"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="button button-primary"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+          {errors.submit && (
+            <span className="error-message">{errors.submit}</span>
+          )}{" "}
+        </div>
       </div>
     </form>
   );

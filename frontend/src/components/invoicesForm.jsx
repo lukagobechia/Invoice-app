@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import "../styles/invoices.css"
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "../styles/invoices.css";
 
 const InvoicesForm = () => {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     description: "",
     paymentTerms: 30,
@@ -29,7 +29,7 @@ const InvoicesForm = () => {
     items: [{ name: "", quantity: 1, price: 0, total: 0 }],
     total: 0,
     status: "pending",
-  })
+  });
 
   useEffect(() => {
     if (id) {
@@ -40,81 +40,86 @@ const InvoicesForm = () => {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
             },
-          })
-          if (!response.ok) throw new Error("Failed to fetch invoice")
-          const data = await response.json()
-          setFormData(data)
+          });
+          if (!response.ok) throw new Error("Failed to fetch invoice");
+          const data = await response.json();
+          setFormData(data);
         } catch (error) {
-          console.error("Error fetching invoice:", error)
+          console.error("Error fetching invoice:", error);
         }
-      }
-      fetchInvoice()
+      };
+      fetchInvoice();
     }
-  }, [id])
+  }, [id]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleAddressChange = (e, addressType) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [addressType]: {
         ...prevData[addressType],
         [name]: value,
       },
-    }))
-  }
+    }));
+  };
 
   const handleItemChange = (index, field, value) => {
-    const newItems = [...formData.items]
-    newItems[index][field] = value
-    newItems[index].total = newItems[index].quantity * newItems[index].price
+    const newItems = [...formData.items];
+    newItems[index][field] = value;
+    newItems[index].total = newItems[index].quantity * newItems[index].price;
 
     setFormData((prevData) => ({
       ...prevData,
       items: newItems,
       total: newItems.reduce((sum, item) => sum + item.total, 0),
-    }))
-  }
+    }));
+  };
 
   const handleAddItem = () => {
     setFormData((prevData) => ({
       ...prevData,
       items: [...prevData.items, { name: "", quantity: 1, price: 0, total: 0 }],
-    }))
-  }
+    }));
+  };
 
   const handleRemoveItem = (index) => {
-    const newItems = formData.items.filter((_, i) => i !== index)
+    const newItems = formData.items.filter((_, i) => i !== index);
     setFormData((prevData) => ({
       ...prevData,
       items: newItems,
       total: newItems.reduce((sum, item) => sum + item.total, 0),
-    }))
-  }
+    }));
+  };
 
   const calculatePaymentDue = (createdAt, paymentTerms) => {
     const createdDate = new Date(createdAt);
     createdDate.setDate(createdDate.getDate() + paymentTerms);
     return createdDate.toISOString().split("T")[0];
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const updatedFormData = {
       ...formData,
-      paymentDue: calculatePaymentDue(formData.createdAt, formData.paymentTerms),
+      paymentDue: calculatePaymentDue(
+        formData.createdAt,
+        formData.paymentTerms
+      ),
     };
-  
+
     try {
-      const url = id ? `http://localhost:3001/invoices/${id}` : "http://localhost:3001/invoices";
+      const url = id
+        ? `http://localhost:3001/invoices/${id}`
+        : "http://localhost:3001/invoices";
       const method = id ? "PUT" : "POST";
       const response = await fetch(url, {
         method,
@@ -130,7 +135,6 @@ const InvoicesForm = () => {
       console.error("Error saving invoice:", error);
     }
   };
-  
 
   return (
     <form onSubmit={handleSubmit} className="invoices-form">
@@ -195,7 +199,13 @@ const InvoicesForm = () => {
         <h3>Bill To</h3>
         <div className="form-group">
           <label htmlFor="clientName">Client's Name</label>
-          <input id="clientName" name="clientName" value={formData.clientName} onChange={handleChange} required />
+          <input
+            id="clientName"
+            name="clientName"
+            value={formData.clientName}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="clientEmail">Client's Email</label>
@@ -276,7 +286,12 @@ const InvoicesForm = () => {
           </div>
           <div className="form-group">
             <label htmlFor="paymentTerms">Payment Terms</label>
-            <select id="paymentTerms" name="paymentTerms" value={formData.paymentTerms} onChange={handleChange}>
+            <select
+              id="paymentTerms"
+              name="paymentTerms"
+              value={formData.paymentTerms}
+              onChange={handleChange}
+            >
               <option value={1}>Net 1 Day</option>
               <option value={7}>Net 7 Days</option>
               <option value={14}>Net 14 Days</option>
@@ -286,7 +301,13 @@ const InvoicesForm = () => {
         </div>
         <div className="form-group">
           <label htmlFor="description">Description</label>
-          <input id="description" name="description" value={formData.description} onChange={handleChange} required />
+          <input
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
         </div>
       </div>
 
@@ -299,7 +320,9 @@ const InvoicesForm = () => {
               <input
                 id={`itemName${index}`}
                 value={item.name}
-                onChange={(e) => handleItemChange(index, "name", e.target.value)}
+                onChange={(e) =>
+                  handleItemChange(index, "name", e.target.value)
+                }
                 required
               />
             </div>
@@ -309,7 +332,13 @@ const InvoicesForm = () => {
                 id={`itemQuantity${index}`}
                 type="number"
                 value={item.quantity}
-                onChange={(e) => handleItemChange(index, "quantity", Number.parseInt(e.target.value))}
+                onChange={(e) =>
+                  handleItemChange(
+                    index,
+                    "quantity",
+                    Number.parseInt(e.target.value)
+                  )
+                }
                 required
                 min="1"
               />
@@ -320,7 +349,13 @@ const InvoicesForm = () => {
                 id={`itemPrice${index}`}
                 type="number"
                 value={item.price}
-                onChange={(e) => handleItemChange(index, "price", Number.parseFloat(e.target.value))}
+                onChange={(e) =>
+                  handleItemChange(
+                    index,
+                    "price",
+                    Number.parseFloat(e.target.value)
+                  )
+                }
                 required
                 min="0"
                 step="0.01"
@@ -330,18 +365,30 @@ const InvoicesForm = () => {
               <label>Total</label>
               <p>${item.total.toFixed(2)}</p>
             </div>
-            <button type="button" className="button button-icon" onClick={() => handleRemoveItem(index)}>
+            <button
+              type="button"
+              className="button button-icon"
+              onClick={() => handleRemoveItem(index)}
+            >
               X
             </button>
           </div>
         ))}
-        <button type="button" className="button button-secondary" onClick={handleAddItem}>
+        <button
+          type="button"
+          className="button button-secondary"
+          onClick={handleAddItem}
+        >
           + Add New Item
         </button>
       </div>
 
       <div className="form-actions">
-        <button type="button" className="button button-secondary" onClick={() => navigate("/invoices")}>
+        <button
+          type="button"
+          className="button button-secondary"
+          onClick={() => navigate("/invoices")}
+        >
           Cancel
         </button>
         <button type="submit" className="button button-primary">
@@ -349,8 +396,7 @@ const InvoicesForm = () => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default InvoicesForm
-
+export default InvoicesForm;
