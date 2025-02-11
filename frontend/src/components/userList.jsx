@@ -5,43 +5,46 @@ import "../styles/userList.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [deleteConfirmation, setDeleteConfirmation] = useState({
     show: false,
     userId: null,
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const itemsPerPage = 10; 
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchUsers(currentPage);
+  }, [currentPage]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (page) => {
     const token = localStorage.getItem("jwtToken");
-
     if (!token) {
       setError("JWT token is not provided");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3001/users", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const response = await fetch(
+        `http://localhost:3001/users?page=${page}&take=${itemsPerPage}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
+        setTotalPages(Math.ceil(data.length / itemsPerPage));
       } else {
-        console.log("Unauthorized or error fetching data");
         setError("Error fetching users");
       }
     } catch (error) {
-      console.error("Error:", error);
       setError("Error fetching users");
     }
   };
@@ -53,7 +56,6 @@ const UserList = () => {
   const confirmDelete = async () => {
     if (deleteConfirmation.userId) {
       const token = localStorage.getItem("jwtToken");
-
       if (!token) {
         setError("JWT token is not provided");
         return;
@@ -75,13 +77,10 @@ const UserList = () => {
           setUsers(
             users.filter((user) => user._id !== deleteConfirmation.userId)
           );
-          console.log("User deleted");
         } else {
-          console.log("Error deleting user");
           setError("Error deleting user");
         }
       } catch (error) {
-        console.error("Error:", error);
         setError("Error deleting user");
       }
 
@@ -139,6 +138,26 @@ const UserList = () => {
             </div>
           ))
         )}
+      </div>
+
+      <div className="pagination">
+        <button
+          className="button button-secondary"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="button button-secondary"
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </button>
       </div>
 
       <DeleteConfirmation

@@ -13,6 +13,14 @@
   --color-paid: #33d69f;
 }
 
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .invoices-list,
 .invoice-details,
 .invoices-form {
@@ -31,6 +39,8 @@
 .invoices-actions {
   display: flex;
   gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .filter-select,
@@ -41,37 +51,24 @@
   border: 1px solid var(--color-border);
   border-radius: 4px;
   margin-right: 0.5rem;
-}
-
-.sort-button {
-  padding: 0.5rem;
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
   cursor: pointer;
-}
-
-.sort-button:hover {
-  background-color: var(--color-secondary-hover);
-}
-
-.filter-select {
-  padding: 0.5rem;
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
 }
 
 .button {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:active {
+  transform: scale(0.98);
 }
 
 .button-primary,
@@ -104,8 +101,9 @@
 }
 
 .button-icon {
-  padding: 0.25rem 0.5rem;
-  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
   color: var(--color-text);
 }
 
@@ -117,24 +115,28 @@
 .invoice-card {
   background-color: var(--color-secondary);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
   align-items: center;
   text-decoration: none;
   color: var(--color-text);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
 .invoice-card:hover {
   background-color: var(--color-secondary-hover);
+  transform: translateY(-2px);
 }
 
 .invoice-status {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   text-align: center;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 .invoice-status.draft {
@@ -158,6 +160,11 @@
   color: var(--color-text);
   text-decoration: none;
   margin-bottom: 2rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--color-primary);
 }
 
 .invoice-header {
@@ -165,7 +172,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-secondary);
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
 }
@@ -178,21 +185,22 @@
 
 .invoice-addresses {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
 .invoice-dates {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
 .invoice-items table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
   margin-bottom: 2rem;
 }
 
@@ -200,21 +208,35 @@
 .invoice-items td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-secondary-hover);
+}
+
+.invoice-items th:first-child,
+.invoice-items td:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.invoice-items th:last-child,
+.invoice-items td:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .invoice-total {
   background-color: var(--color-background);
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .invoices-form .form-section {
   background-color: var(--color-secondary);
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
 }
@@ -226,22 +248,24 @@
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   background-color: var(--color-background);
   color: var(--color-text);
   border: 1px solid var(--color-border);
   border-radius: 4px;
+  font-size: 1rem;
 }
 
 .item-row {
@@ -281,6 +305,7 @@
 
 .delete-confirmation-title {
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .delete-confirmation-message {
@@ -297,17 +322,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 .pagination button {
-  height: 40px;
-  padding: 0 15px;
+  padding: 0.5rem 1rem;
   background-color: var(--color-primary);
   color: white;
   border: none;
-  border-radius: 9999px;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -315,13 +339,63 @@
 }
 
 .pagination button:disabled {
-  background-color: #cccccc;
+  background-color: var(--color-secondary);
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .pagination span {
   font-size: 16px;
   color: var(--color-text);
+}
+
+.error-message {
+  color: var(--color-delete);
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.sliding-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-background);
+  transition: right 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sliding-panel.open {
+  right: 0;
+}
+
+@media (min-width: 768px) {
+  .sliding-panel {
+    width: 60%;
+  }
+}
+
+.sliding-panel-content {
+  padding: 2rem;
+}
+
+.close-panel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-panel:hover {
+  color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
@@ -337,5 +411,17 @@
   .invoice-card {
     grid-template-columns: 1fr;
     gap: 0.5rem;
+  }
+
+  .invoices-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button,
+  .filter-select,
+  .sort-select {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 }

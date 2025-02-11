@@ -57,7 +57,9 @@ const Dashboard = () => {
   return (
     <>
       <nav>
-        <h1 className="dashboard-title">Welcome to Admin Panel</h1>
+        <h1 className="dashboard-title">
+          {currentUsers?.role === "admin" ? "Welcome to Admin Panel" : "Welcome to User Panel"}
+        </h1>
         <div className="user-section">
           <h2 className="user">
             Hi,{" "}

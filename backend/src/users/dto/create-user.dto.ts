@@ -66,12 +66,11 @@ export class CreateUserDto {
   @IsEnum(['admin', 'user'])
   role: 'admin' | 'user' = 'user';
 
-  @IsPhoneNumber('GE')
-  @Matches(/^\+?[1-9]\d{1,14}$/, {
+  @Matches(/[1-9]\d{1,14}$/ , {
     message:
-      'Phone number must be a valid international number starting with + followed by 1-14 digits.',
+      'Phone number must be a valid international number with 1-14 digits.',
   })
-  phoneNumber: number;
+  phoneNumber: string;
 
   @IsNotEmpty()
   @ValidateNested()

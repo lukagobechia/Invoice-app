@@ -1,74 +1,108 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
-import "../styles/invoices.css";
+import { useState, useEffect, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
+import "../styles/invoices.css"
+import InvoicesForm from "./invoicesForm"
+import Loading from "./loading"
 
 const InvoicesList = () => {
-  const [invoices, setInvoices] = useState([]);
-  const [filter, setFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("dueDate");
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [toggle, setToggle] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [invoices, setInvoices] = useState([])
+  const [filter, setFilter] = useState("all")
+  const [sortBy, setSortBy] = useState("dueDate")
+  const [sortOrder, setSortOrder] = useState("asc")
+  const [toggle, setToggle] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [showForm, setShowForm] = useState(false)
+  const [editingInvoice, setEditingInvoice] = useState(null)
 
-  const endpoint1 = "http://localhost:3001/invoices";
-  const endpoint2 = "http://localhost:3001/invoices/my-invoices";
-  const pageSize = 5;
+  const endpoint1 = "http://localhost:3001/invoices"
+  const endpoint2 = "http://localhost:3001/invoices/my-invoices"
+  const pageSize = 5
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [filter]);
+    setCurrentPage(1)
+  }, [])
 
   const fetchInvoices = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const url = toggle ? endpoint2 : endpoint1;
+      const url = toggle ? endpoint2 : endpoint1
       const response = await fetch(
-        `${url}?page=${currentPage}&take=${pageSize}&status=${filter}`,
+        `${url}?page=${currentPage}&take=${pageSize}&status=${filter}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
-        }
-      );
+        },
+      )
 
       if (!response.ok) {
-        throw new Error("Failed to fetch invoices");
+        throw new Error("Failed to fetch invoices")
       }
 
-      const data = await response.json();
-      setInvoices(data.invoices);
-      setTotalPages(Math.ceil(data.total / pageSize));
+      const data = await response.json()
+      setInvoices(data.invoices)
+      setTotalPages(Math.ceil(data.total / pageSize))
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [toggle, currentPage, filter]);
+  }, [toggle, currentPage, filter, sortBy, sortOrder])
 
   useEffect(() => {
-    fetchInvoices();
-  }, [fetchInvoices]);
+    fetchInvoices()
+  }, [fetchInvoices])
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      setCurrentPage(newPage)
     }
-  };
+  }
+
+  const handleSortChange = (newSortBy) => {
+    if (newSortBy === sortBy) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+    } else {
+      setSortBy(newSortBy)
+      setSortOrder("asc")
+    }
+  }
 
   const sortedInvoices = invoices.sort((a, b) => {
     if (sortBy === "dueDate") {
       return sortOrder === "asc"
         ? new Date(a.paymentDue) - new Date(b.paymentDue)
-        : new Date(b.paymentDue) - new Date(a.paymentDue);
+        : new Date(b.paymentDue) - new Date(a.paymentDue)
     } else if (sortBy === "total") {
-      return sortOrder === "asc" ? a.total - b.total : b.total - a.total;
+      return sortOrder === "asc" ? a.total - b.total : b.total - a.total
     }
-    return 0;
-  });
+    return 0
+  })
+
+  const handleAddInvoice = () => {
+    setEditingInvoice(null)
+    setShowForm(true)
+  }
+
+  const handleEditInvoice = (invoice) => {
+    setEditingInvoice(invoice)
+    setShowForm(true)
+  }
+
+  const handleCloseForm = () => {
+    setShowForm(false)
+    setEditingInvoice(null)
+  }
+
+  const navigate = useNavigate()
+
+  const handleInvoiceClick = (invoiceId) => {
+    navigate(`/invoices/${invoiceId}`)
+  }
 
   return (
     <div className="invoices-list">
@@ -78,66 +112,39 @@ const InvoicesList = () => {
           <p>{sortedInvoices.length} invoices</p>
         </div>
         <div className="invoices-actions">
-          <select
-            className="filter-select"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          >
+          <select className="filter-select" value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">All Statuses</option>
             <option value="draft">Draft</option>
             <option value="pending">Pending</option>
             <option value="paid">Paid</option>
           </select>
-          <select
-            className="filter-select"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="dueDate">Due Date</option>
-            <option value="total">Total Amount</option>
-          </select>
-          <button
-            className="button button-secondary"
-            onClick={() =>
-              setSortOrder((prevOrder) =>
-                prevOrder === "asc" ? "desc" : "asc"
-              )
-            }
-          >
-            {sortOrder === "asc" ? "↑" : "↓"}
+          <button className="button button-secondary" onClick={() => handleSortChange("dueDate")}>
+            Due Date {sortBy === "dueDate" && (sortOrder === "asc" ? "↑" : "↓")}
           </button>
-          <Link to="/invoices/new" className="button button-primary">
+          <button className="button button-secondary" onClick={() => handleSortChange("total")}>
+            Total Amount {sortBy === "total" && (sortOrder === "asc" ? "↑" : "↓")}
+          </button>
+          <button className="button button-primary" onClick={handleAddInvoice}>
             <span className="plus-icon">+</span> New Invoice
-          </Link>
-          <button
-            className="button button-toggle"
-            onClick={() => setToggle((prev) => !prev)}
-          >
+          </button>
+          <button className="button button-toggle" onClick={() => setToggle((prev) => !prev)}>
             {toggle ? "All Invoices" : "My Invoices"}
           </button>
         </div>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
       <div className="invoices-grid">
         {sortedInvoices.map((invoice) => (
-          <Link
-            to={`/invoices/${invoice._id}`}
-            key={invoice._id}
-            className="invoice-card"
-          >
+          <div key={invoice._id} className="invoice-card" onClick={() => handleInvoiceClick(invoice._id)}>
             <div className="invoice-id">#{invoice._id.slice(-6)}</div>
-            <div className="invoice-due">
-              Due {new Date(invoice.paymentDue).toLocaleDateString()}
-            </div>
+            <div className="invoice-due">Due {new Date(invoice.paymentDue).toLocaleDateString()}</div>
             <div className="invoice-client">{invoice.clientName}</div>
             <div className="invoice-total">${invoice.total.toFixed(2)}</div>
-            <div className={`invoice-status ${invoice.status}`}>
-              {invoice.status}
-            </div>
-          </Link>
+            <div className={`invoice-status ${invoice.status}`}>{invoice.status}</div>
+          </div>
         ))}
       </div>
 
@@ -161,14 +168,28 @@ const InvoicesList = () => {
         </button>
       </div>
 
-      <button
-        className="button button-primary go-back"
-        onClick={() => (window.location.href = `/`)}
-      >
+      <button className="button button-primary go-back" onClick={() => (window.location.href = `/`)}>
         Go back
       </button>
-    </div>
-  );
-};
 
-export default InvoicesList;
+      <div className={`sliding-panel ${showForm ? "open" : ""}`}>
+        <div className="sliding-panel-content">
+          <button className="close-panel" onClick={handleCloseForm}>
+            &times;
+          </button>
+          <InvoicesForm
+            invoice={editingInvoice}
+            onClose={handleCloseForm}
+            onSubmit={() => {
+              handleCloseForm()
+              fetchInvoices()
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default InvoicesList
+
