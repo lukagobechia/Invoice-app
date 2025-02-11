@@ -28,7 +28,7 @@ const UserList = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/users?page=${page}&take=${itemsPerPage}`,
+        `https://invoice-app-zo8w.onrender.com/users?page=${page}&take=${itemsPerPage}`,
         {
           method: "GET",
           headers: {
@@ -63,7 +63,7 @@ const UserList = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/users/${deleteConfirmation.userId}`,
+          `https://invoice-app-zo8w.onrender.com/users/${deleteConfirmation.userId}`,
           {
             method: "DELETE",
             headers: {

@@ -14,7 +14,7 @@ const InvoiceDetails = () => {
 
   const fetchInvoice = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/invoices/${id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/invoices/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
@@ -33,7 +33,7 @@ const InvoiceDetails = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/invoices/${id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/invoices/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
@@ -48,7 +48,7 @@ const InvoiceDetails = () => {
 
   const handleStatusChange = async (newStatus) => {
     try {
-      const response = await fetch(`http://localhost:3001/invoices/${id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/invoices/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

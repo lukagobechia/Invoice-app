@@ -22,7 +22,7 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/current-user", {
+      const response = await fetch("https://invoice-app-zo8w.onrender.com/current-user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

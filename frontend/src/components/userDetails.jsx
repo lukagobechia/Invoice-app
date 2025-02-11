@@ -27,7 +27,7 @@ const UserDetails = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/users/${id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/users/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ const UserDetails = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/users/${id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/users/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const UserDetails = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/users/${id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/users/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

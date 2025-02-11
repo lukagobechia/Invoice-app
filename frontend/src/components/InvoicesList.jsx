@@ -17,8 +17,8 @@ const InvoicesList = () => {
   const [showForm, setShowForm] = useState(false)
   const [editingInvoice, setEditingInvoice] = useState(null)
 
-  const endpoint1 = "http://localhost:3001/invoices"
-  const endpoint2 = "http://localhost:3001/invoices/my-invoices"
+  const endpoint1 = "https://invoice-app-zo8w.onrender.com/invoices"
+  const endpoint2 = "https://invoice-app-zo8w.onrender.com/invoices/my-invoices"
   const pageSize = 5
 
   useEffect(() => {
