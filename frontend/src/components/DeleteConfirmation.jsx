@@ -1,5 +1,6 @@
 import React from "react";
-import "../styles/DeleteConfirmation.css";
+
+import "../styles/deleteConfirmation.css";
 
 export function DeleteConfirmation({
   isOpen,
