@@ -11,7 +11,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3001/users", {
+        const response = await fetch("https://invoice-app-zo8w.onrender.com/users", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
@@ -32,7 +32,7 @@ const Users = () => {
 
   const handleAddUser = async (newUser) => {
     try {
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("https://invoice-app-zo8w.onrender.com/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const Users = () => {
 
   const handleUpdateUser = async (updatedUser) => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${updatedUser._id}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/users/${updatedUser._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const Users = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`https://invoice-app-zo8w.onrender.com/users/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
