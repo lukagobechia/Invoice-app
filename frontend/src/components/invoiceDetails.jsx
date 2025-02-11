@@ -1,32 +1,35 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { DeleteConfirmation } from "./DeleteConfirmation";
 import "../styles/invoices.css";
+import InvoicesForm from "./invoicesForm";
+import Loading from "./loading";
 
 const InvoiceDetails = () => {
   const [invoice, setInvoice] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchInvoice = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/invoices/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-          },
-        });
-        if (!response.ok) throw new Error("Failed to fetch invoice");
-        const data = await response.json();
-        setInvoice(data);
-      } catch (error) {
-        console.error("Error fetching invoice:", error);
-      }
-    };
+  const fetchInvoice = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/invoices/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch invoice");
+      const data = await response.json();
+      setInvoice(data);
+    } catch (error) {
+      console.error("Error fetching invoice:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchInvoice();
-  }, [id]);
+  }, []);
 
   const handleDelete = async () => {
     try {
@@ -61,7 +64,13 @@ const InvoiceDetails = () => {
     }
   };
 
-  if (!invoice) return <div>Loading...</div>;
+  const handleEditSubmit = (updatedInvoice) => {
+    setInvoice(updatedInvoice);
+    setIsEditFormOpen(false);
+    fetchInvoice();
+  };
+
+  if (!invoice) return <Loading />;
 
   return (
     <div className="invoice-details">
@@ -73,9 +82,12 @@ const InvoiceDetails = () => {
           Status: <span className={invoice.status}>{invoice.status}</span>
         </div>
         <div className="invoice-actions">
-          <Link to={`/invoices/${id}/edit`} className="button button-secondary">
+          <button
+            onClick={() => setIsEditFormOpen(true)}
+            className="button button-secondary"
+          >
             Edit
-          </Link>
+          </button>
           <button
             onClick={() => setIsDeleteModalOpen(true)}
             className="button button-delete"
@@ -90,12 +102,20 @@ const InvoiceDetails = () => {
               Mark as Paid
             </button>
           )}
-          {invoice.status === "draft" && (
+          {invoice.status !== "pending" && (
             <button
               onClick={() => handleStatusChange("pending")}
               className="button button-secondary"
             >
-              Send Invoice
+              Mark as Pending
+            </button>
+          )}
+          {invoice.status !== "draft" && (
+            <button
+              onClick={() => handleStatusChange("draft")}
+              className="button button-secondary"
+            >
+              Mark as Draft
             </button>
           )}
         </div>
@@ -174,6 +194,21 @@ const InvoiceDetails = () => {
         onConfirm={handleDelete}
         itemType="invoice"
       />
+      <div className={`sliding-panel ${isEditFormOpen ? "open" : ""}`}>
+        <div className="sliding-panel-content">
+          <button
+            className="close-panel"
+            onClick={() => setIsEditFormOpen(false)}
+          >
+            &times;
+          </button>
+          <InvoicesForm
+            invoice={invoice}
+            onClose={() => setIsEditFormOpen(false)}
+            onSubmit={handleEditSubmit}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -44,8 +44,8 @@ export class User {
   @Prop({ enum: ['admin', 'user'], default: 'user', index: true })
   role: 'admin' | 'user';
 
-  @Prop({ type: Number, required: true, match: /^\+?[1-9]\d{1,14}$/ })
-  phoneNumber: number;
+  @Prop({ type: String, required: true, match: /[1-9]\d{1,14}$/ })
+  phoneNumber: string;
 
   @Prop({ type: AddressSchema, required: true })
   address: Address;

@@ -73,19 +73,10 @@ function AuthPage() {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">Remember me</label>
             </div>
-            <a href="/forgot-password" className="forgot-password">
-              Forgot password?
-            </a>
           </div>
           <button type="submit" className="submit-button">
             Sign in
           </button>
-          <p className="signup-prompt">
-            Don't have an account?{" "}
-            <a href="/register" className="signup-link">
-              Sign up
-            </a>
-          </p>
         </form>
       </div>
     </div>

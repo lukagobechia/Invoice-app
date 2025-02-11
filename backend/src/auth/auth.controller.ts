@@ -23,7 +23,6 @@ export class AuthController {
   @UseGuards(AuthGuard, IsUser)
   getCurrentUser(@Req() request) {
     const userId = request.userId;
-    console.log(userId);
     return this.authService.getCurrentUser(userId);
   }
 }
