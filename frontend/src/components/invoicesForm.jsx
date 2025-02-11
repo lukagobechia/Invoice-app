@@ -116,7 +116,7 @@ const InvoicesForm = ({ onSubmit, onCancel, initialData, invoice }) => {
     e.preventDefault()
 
     try {
-      const userResponse = await fetch("http://localhost:3001/current-user", {
+      const userResponse = await fetch("https://invoice-app-zo8w.onrender.com/current-user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
@@ -160,7 +160,7 @@ const InvoicesForm = ({ onSubmit, onCancel, initialData, invoice }) => {
         user: userData._id,
       }
 
-      const url = invoice ? `http://localhost:3001/invoices/${invoice._id}` : "http://localhost:3001/invoices"
+      const url = invoice ? `https://invoice-app-zo8w.onrender.com/invoices/${invoice._id}` : "https://invoice-app-zo8w.onrender.com/invoices"
       const method = invoice ? "PATCH" : "POST"
 
       const response = await fetch(url, {
